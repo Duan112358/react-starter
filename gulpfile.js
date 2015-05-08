@@ -63,7 +63,7 @@ gulp.task("images", function(){
 gulp.task('default', ['webpack', 'less', 'html', 'images', 'fonts'], function(){
     browserSync({
         notify: false,
-        server: './build'
+        proxy: 'http://localhost:8282'
     }); 
 
     gulp.watch('less/**/*.less', ['less', reload]);
