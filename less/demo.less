@@ -1,0 +1,52 @@
+// 
+// Demo
+// ==============================
+
+
+
+// Variables
+// ------------------------------
+
+
+@demo-bg:                   #c32964;
+@device-chrome-vertical:       50px;
+
+
+#app {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+@-webkit-keyframes pulse {
+    50% { opacity: .25; }
+}
+@keyframes pulse {
+    50% { opacity: .25; }
+}
+
+.list-item {
+    display: block;
+
+    .item-inner{
+        display: block;
+
+        & > span, .field-label{
+            width: 35%;
+            display: inline-block;
+        }
+
+        .item-note, .field-control{
+            width: 65%;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+
+    &.invalid .item-inner::after{
+       background-color: red; 
+       -webkit-animation: pulse 1s linear infinite;
+       animation: pulse 1s linear infinite;
+    }
+}
+
