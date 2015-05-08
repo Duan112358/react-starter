@@ -10,11 +10,11 @@ related libs
     
     with auto refresh enabled
 
-    ![](https://raw.githubusercontent.com/Duan112358/react-starter/master/screen/dev.png)
+    ![](screen/dev.png)
   
 ### release mode
     npm run build
 
     with persist cache enabled
     
-    ![](https://raw.githubusercontent.com/Duan112358/react-starter/master/screen/index.png)
+    ![](screen/index.png)
