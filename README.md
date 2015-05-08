@@ -1,5 +1,5 @@
-# react-demo
-react demo
+## react seed project
+related libs
 `less` `reactjs` `webpack` `gulp`
 
 ### project init
