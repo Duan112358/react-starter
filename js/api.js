@@ -63,9 +63,16 @@ var Api = {
     isandroid: function(){
         return /android/i.test(navigator.userAgent);
     },
+    send_ios: function(data){
+        if(!window.WebViewJavascriptBridge){
+           alert(JSON.stringify(data.params)); 
+           return;
+        }
+        window.WebViewJavascriptBridge.send(JSON.stringify(data.params));
+    },
     // cross client message transport
     send_msg: function(data){
-        if(this.isandroid){
+        if(this.isandroid()){
             var msg = {
                 sm: {
                     callback: data.callback,
@@ -76,15 +83,8 @@ var Api = {
 
             window.location.href = 'message:' + JSON.stringify(msg);
         }else{
-           this.send_ios(data.params);
+           this.send_ios(data);
         } 
-    },
-    send_ios: function(data){
-        if(!window.WebViewJavascriptBridge){
-           alert(JSON.stringify(data.params)); 
-           return;
-        }
-        window.WebViewJavascriptBridge.send(JSON.stringify(data.params));
     }
 };
 

@@ -11,7 +11,11 @@ module.exports = React.createClass({
         this.send_msg({
             callback: 'unionpay_trade_callback',
             module: 'unionpay',
-            params: this.prop.success
+            params: this.props.success ? {
+                unionpay: {success: true, msg: '支付成功'}
+            } : {
+                unionpay: {success: false, msg: '支付失败'}
+            }
         });	
 	},
 
