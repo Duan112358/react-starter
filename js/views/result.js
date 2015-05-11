@@ -21,7 +21,7 @@ module.exports = React.createClass({
 				<UI.Headerbar type="default" label="支付结果">
 				</UI.Headerbar>
 				<UI.FlexBlock>
-					<UI.Feedback iconKey={this.props.success ? 'ion-ios-checkmark-outline' : 'ion-ios-close-outline'} iconType={this.props.success ? 'success': 'danger'} header={this.props.success ? '支付成功' : '支付失败'} actionText="确定" actionFn={this.back} />
+					<UI.Feedback iconKey={this.props.success ? 'ion-ios7-checkmark-outline' : 'ion-ios7-close-outline'} iconType={this.props.success ? 'success': 'danger'} header={this.props.success ? '支付成功' : '支付失败'} actionText="确定" actionFn={this.back} />
 				</UI.FlexBlock>
 			</UI.FlexLayout>
 		);

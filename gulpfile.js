@@ -50,7 +50,7 @@ gulp.task('webpack:build', function(){
 
 
 gulp.task("release", ["clean"], function(){
-    runSequence('webpack:build','images','less', 'html', 'rev');
+    runSequence('webpack:build','images', 'fonts', 'less', 'html', 'rev');
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'build/*'], {dot: true}));
