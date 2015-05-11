@@ -33,14 +33,14 @@ module.exports = React.createClass({
             smsText: timer + '秒后重新发送'
         });
 
-        this.smscode({
+        /*this.smscode({
             order_no: this.props.order_no,
-            card_no: this.props.card_no 
+            card_no: this.props.account 
         },function(resp){
             if(resp.respcd !== '0000'){
                 alert(resp.resperr);
             }
-        });
+        });*/
 
         timer = 60;
         clearInterval(timerid);
@@ -80,7 +80,11 @@ module.exports = React.createClass({
             processingText: '支付处理中...'
         });
 
-        that.trade({
+        that.showView('result', 'show-from-right', {
+            success: '支付成功'
+        });
+
+        /*that.trade({
             vcode: that.state.smscode,
             card_no: that.props.account,
             token: that.props.token,
@@ -100,8 +104,7 @@ module.exports = React.createClass({
                 processing: false,
                 processingText: '立即支付'
             });
-            
-        });
+        });*/
     },
 
 	render: function() {

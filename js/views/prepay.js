@@ -13,7 +13,6 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
         this.getquery();
-        console.log(this.params);
         return {
             processing: false,
             processingText: '下一步'
@@ -38,7 +37,11 @@ module.exports = React.createClass({
             processingText: '处理中...'
         });
 
-        that.checkcard({
+        that.params.account = that.state.account;
+        that.params.card_no = that.state.account;
+        that.showView('verify', 'show-from-right', that.params);
+
+        /*that.checkcard({
             card_no: this.state.account,
             token: this.params.token,
             caller: 'h5'
@@ -49,6 +52,7 @@ module.exports = React.createClass({
             }else{
                 var data = resp.data;
                 that.params.account = that.state.account;
+                that.params.card_no = that.state.account;
                 if(data.bind){
                     // 已经实名认证
                     that.showView('pay', 'show-from-right', that.params);
@@ -62,8 +66,7 @@ module.exports = React.createClass({
                 processing: false,
                 processingText: '下一步'
             });
-            
-        });
+        });*/
     },
     
     onAccountChange: function(evt){
@@ -81,7 +84,7 @@ module.exports = React.createClass({
 		return (
 			<UI.FlexLayout className={this.props.viewClassName}>
 				<UI.Headerbar type="default" label="银联支付">
-					<UI.HeaderbarButton showView="result" viewTransition="reveal-from-right" label="返回" icon="ion-chevron-left" />
+                    <UI.HeaderbarButton showView="result" viewTransition="reveal-from-right" label="返回" icon="ion-chevron-left" />
                     <UI.LoadingButton loading={this.state.processing} className="Headerbar-button right is-primary" disabled={this.isdisabled()} onTap={this.prepay} label={this.state.processingText}/>
 				</UI.Headerbar>
 				<UI.FlexBlock grow scrollable>

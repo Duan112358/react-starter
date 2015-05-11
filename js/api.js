@@ -33,13 +33,13 @@ var Api = {
     },
     getquery: function(){
         if(!this.params){
-            var search = location.search.substr(location.hash.indexOf('?') + 1);
+            var search = location.search.substr(location.hash.indexOf('?') + 2);
             this.params = search.split('&').reduce(function(result, item) {
                 values = item.split('=');
                 result[values[0]] = values[1];
                 return result;
             }, {});
-            this.params.amount = this.params.pay_amt;
+            this.params.amount = this.params.pay_amt || this.params.total_amt;
             this.params.order_no = this.params.order_id;
         } 
 
@@ -63,9 +63,16 @@ var Api = {
     isandroid: function(){
         return /android/i.test(navigator.userAgent);
     },
+    send_ios: function(data){
+        if(!window.WebViewJavascriptBridge){
+           alert('IOS WebViewJavascriptBridge not found'); 
+           return;
+        }
+        window.WebViewJavascriptBridge.send(JSON.stringify(data.params));
+    },
     // cross client message transport
     send_msg: function(data){
-        if(this.isandroid){
+        if(this.isandroid()){
             var msg = {
                 sm: {
                     callback: data.callback,
@@ -76,15 +83,8 @@ var Api = {
 
             window.location.href = 'message:' + JSON.stringify(msg);
         }else{
-           this.send_ios(data.params);
+           this.send_ios(data);
         } 
-    },
-    send_ios: function(data){
-        if(!window.WebViewJavascriptBridge){
-           alert(JSON.stringify(data.params)); 
-           return;
-        }
-        window.WebViewJavascriptBridge.send(JSON.stringify(data.params));
     }
 };
 

@@ -7,11 +7,12 @@ var React = require('react'),
 module.exports = React.createClass({
 	mixins: [Navigation, Api],
 
-	back: function() {
+	closeWin: function() {
         this.send_msg({
             callback: 'unionpay_trade_callback',
             module: 'unionpay',
-            params: this.prop.success
+            params: this.props.success ? { success: '支付成功' }
+                : {success: false, msg: '支付失败'}
         });	
 	},
 
@@ -21,7 +22,7 @@ module.exports = React.createClass({
 				<UI.Headerbar type="default" label="支付结果">
 				</UI.Headerbar>
 				<UI.FlexBlock>
-					<UI.Feedback iconKey={this.props.success ? 'ion-ios7-checkmark-outline' : 'ion-ios7-close-outline'} iconType={this.props.success ? 'success': 'danger'} header={this.props.success ? '支付成功' : '支付失败'} actionText="确定" actionFn={this.back} />
+					<UI.Feedback iconKey={this.props.success ? 'ion-ios7-checkmark-outline' : 'ion-ios7-close-outline'} iconType={this.props.success ? 'success': 'danger'} header={this.props.success ? '支付成功' : '支付失败'} actionText="确定" actionFn={this.closeWin} />
 				</UI.FlexBlock>
 			</UI.FlexLayout>
 		);

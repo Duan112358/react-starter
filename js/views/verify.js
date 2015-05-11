@@ -6,7 +6,8 @@ var React = require('react'),
     Api = require('../api'),
 	{ Navigation, Link, UI } = require('touchstonejs');
 
-var timer = 59;
+var timer = false;
+var timerid = 0;
 
 module.exports = React.createClass({
 	mixins: [Navigation, Api],
@@ -23,6 +24,18 @@ module.exports = React.createClass({
     onExpireChange: function(evt){
         var pattern = /^[1-3][1-9]\/(0[1-9])|(1[0-2])$/;
         var value = evt.target.value;
+
+        if(value && value.length === 2 && /^[1-3][1-9]$/.test(value)){
+            if(timer){
+                clearTimeout(timerid);
+                timerid = setTimeout(function(){
+                    timer = false;
+                }, 300);
+            }else{
+                value = value + '/';
+                timer = true;
+            }
+        }
 
         this.setState({
             expire: value,
@@ -84,7 +97,12 @@ module.exports = React.createClass({
             processingText: '支付处理中...'
         });
 
-        that.auth({
+        that.params.card_no = that.props.account;
+        that.params.amount = that.props.amount;
+        console.log(that.params);
+        that.showView('pay', 'show-from-right', that.params);
+
+        /*that.auth({
             cvv2: that.state.cvv2,
             mobile: that.state.mobile,
             name: that.state.name,
@@ -98,6 +116,8 @@ module.exports = React.createClass({
             if(resp.respcd !== '0000'){
                 alert(resp.resperr);
             }else{
+                that.params.card_no = that.props.account;
+                that.params.amount = that.props.amount;
                 that.showView('pay', 'show-from-right', that.params);
             }
 
@@ -106,7 +126,7 @@ module.exports = React.createClass({
                 processingText: '立即支付'
             });
             
-        });
+        });*/
     },
 
 	render: function() {
@@ -148,7 +168,7 @@ module.exports = React.createClass({
                     
 					<div className="panel-header text-caps">银行卡信息</div>
 					<div className="panel">
-                        <UI.LabelInput label="有效期" placeholder="月份/年份 如15/08"  type="text" onChange={this.onExpireChange} className={getClasses({'error': !!!this.state.expire, 'invalid': this.state.expireError})} value={this.state.expire}/>
+                        <UI.LabelInput label="有效期" placeholder="月份/年份 如15/08"  type="tel" onChange={this.onExpireChange} className={getClasses({'error': !!!this.state.expire, 'invalid': this.state.expireError})} value={this.state.expire}/>
                         <UI.LabelInput label="CVV2" placeholder="卡背面签名栏后三位"  type="tel" onChange={this.onCvv2Change} value={this.state.cvv2} className={getClasses({'error': !!!this.state.cvv2, 'invalid': this.state.cvv2Error})}/>
                         <UI.LabelInput label="姓名" placeholder="请输入姓名"  type="text" onChange={this.onNameChange} value={this.state.name} className={getClasses({'error': !!!this.state.name, 'invalid': this.state.nameError})}/>
                         <UI.LabelInput label="身份证号" placeholder="请输入身份证号"  type="text" onChange={this.onIDnumberChange} value={this.state.idnum} className={getClasses({'error': !!!this.state.idnum, 'invalid': this.state.idnumError})}/>
