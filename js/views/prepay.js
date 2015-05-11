@@ -81,7 +81,6 @@ module.exports = React.createClass({
 		return (
 			<UI.FlexLayout className={this.props.viewClassName}>
 				<UI.Headerbar type="default" label="银联支付">
-					<UI.HeaderbarButton showView="result" viewTransition="reveal-from-right" label="返回" icon="ion-chevron-left" />
                     <UI.LoadingButton loading={this.state.processing} className="Headerbar-button right is-primary" disabled={this.isdisabled()} onTap={this.prepay} label={this.state.processingText}/>
 				</UI.Headerbar>
 				<UI.FlexBlock grow scrollable>

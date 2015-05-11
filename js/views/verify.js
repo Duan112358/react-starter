@@ -12,6 +12,7 @@ module.exports = React.createClass({
 	mixins: [Navigation, Api],
 
 	getInitialState: function() {
+        this.getquery();
 		return {
             processing: false,
             processingText: '立即支付',
@@ -98,6 +99,8 @@ module.exports = React.createClass({
             if(resp.respcd !== '0000'){
                 alert(resp.resperr);
             }else{
+                that.params.account = that.props.account;
+                that.params.amount = that.props.amount;
                 that.showView('pay', 'show-from-right', that.params);
             }
 
