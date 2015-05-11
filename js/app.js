@@ -22,7 +22,7 @@ var App = React.createClass({
 	mixins: [Touchstone.createApp(views)],
 
 	getInitialState: function() {
-		var startView = 'prepay';
+		var startView = 'verify';
 
 		// resort to #viewName if it exists
 		if (window.location.hash) {

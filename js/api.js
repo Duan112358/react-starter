@@ -65,7 +65,7 @@ var Api = {
     },
     send_ios: function(data){
         if(!window.WebViewJavascriptBridge){
-           alert(JSON.stringify(data.params)); 
+           alert('IOS WebViewJavascriptBridge module not found'); 
            return;
         }
         window.WebViewJavascriptBridge.send(JSON.stringify(data.params));

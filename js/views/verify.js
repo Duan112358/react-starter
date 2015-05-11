@@ -6,7 +6,8 @@ var React = require('react'),
     Api = require('../api'),
 	{ Navigation, Link, UI } = require('touchstonejs');
 
-var timer = 59;
+var timer = false;
+var timerid = 0;
 
 module.exports = React.createClass({
 	mixins: [Navigation, Api],
@@ -25,6 +26,18 @@ module.exports = React.createClass({
         var pattern = /^[1-3][1-9]\/(0[1-9])|(1[0-2])$/;
         var value = evt.target.value;
 
+
+        if(value && value.length === 2 && /^[1-3][1-9]$/.test(value)){
+            if(timer){
+                clearTimeout(timerid);
+                timerid = setTimeout(function(){
+                    timer = false;
+                }, 300);
+            }else{
+                value = value + '/';
+                timer = true;
+            }
+        }
         this.setState({
             expire: value,
             expireError: value && !pattern.test(value) && '有效期格式错误' 
